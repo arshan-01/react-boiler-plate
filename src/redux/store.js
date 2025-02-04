@@ -3,7 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import rootReducer from "./rootReducer";
-import { loadingMiddleware } from "./middleware/loader.middleware";
+import { loadingMiddleware } from "./middlewares/loading.middleware";
 
 // Create a persist config
 const persistConfig = {

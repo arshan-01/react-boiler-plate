@@ -1,5 +1,5 @@
 // src/redux/middlewares/loading.middleware.js
-import { setLoading } from "../feature/loader/loader.slice";
+import { setLoading } from "../features/loading/loading.slice";
 
 // src/redux/middleware/loading.middleware.js
 export const loadingMiddleware = (store) => (next) => (action) => {

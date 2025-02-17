@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Bell, Key, Mail, User } from 'lucide-react';
-import DashboardLayout from '../../layouts/DashboardLayout';
+import DashboardLayout from '../../../layouts/DashboardLayout';
 
 const Settings = () => {
     const [email, setEmail] = useState('admin@acmecorp.com');
     const [smtpServer, setSmtpServer] = useState('smtp.acmecorp.com');
     const [smtpPort, setSmtpPort] = useState(587);
     const [apiKey, setApiKey] = useState('••••••••••••••••');
-    const [apiKeyChanged, setApiKeyChanged] = useState(false); // To track changes to API key
+    const [apiKeyChanged, setApiKeyChanged] = useState(false);
     const [apiKeyMessage, setApiKeyMessage] = useState('');
     const [emailNotifications, setEmailNotifications] = useState(false);
     const [errorAlerts, setErrorAlerts] = useState(true);
-    const [verificationMessage, setVerificationMessage] = useState('');
+    const [emailFrequency, setEmailFrequency] = useState('daily');
 
     // Handle saving SMTP settings
     const handleSaveConnection = () => {
@@ -45,27 +45,8 @@ const Settings = () => {
         setApiKeyChanged(true);
     };
 
-    // Function to trigger email verification
-    const handleEmailVerification = async () => {
-        try {
-            // Send API request to trigger email verification
-            const response = await fetch('/api/send-verification-email', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email }),
-            });
-
-            if (response.ok) {
-                setVerificationMessage('A verification email has been sent to your new email address.');
-            } else {
-                setVerificationMessage('There was an issue sending the verification email. Please try again.');
-            }
-        } catch (error) {
-            setVerificationMessage('Error sending verification email. Please try again later.');
-        }
-    };
+    // Handle email frequency change
+    const handleEmailFrequencyChange = (e) => setEmailFrequency(e.target.value);
 
     useEffect(() => {
         if (apiKeyChanged) {
@@ -103,16 +84,7 @@ const Settings = () => {
                                     placeholder="Enter your email"
                                 />
                                 <p className="text-xs text-gray-500 mt-1">We will send important updates to this email.</p>
-                                {verificationMessage && (
-                                    <p className="text-xs text-blue-500 mt-1">{verificationMessage}</p>
-                                )}
                             </div>
-                            <button
-                                onClick={handleEmailVerification}
-                                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 mt-4"
-                            >
-                                Send Verification Email
-                            </button>
                         </div>
                     </div>
 
@@ -204,6 +176,21 @@ const Settings = () => {
                                     onChange={() => setErrorAlerts(!errorAlerts)}
                                     className="form-checkbox h-5 w-5 text-blue-600"
                                 />
+                            </div>
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <p className="font-medium">Email Frequency</p>
+                                    <p className="text-sm text-gray-500">Choose how often to receive notifications</p>
+                                </div>
+                                <select
+                                    value={emailFrequency}
+                                    onChange={handleEmailFrequencyChange}
+                                    className="border rounded-md p-2"
+                                >
+                                    <option value="daily">Daily</option>
+                                    <option value="weekly">Weekly</option>
+                                    <option value="instant">Instant</option>
+                                </select>
                             </div>
                         </div>
 

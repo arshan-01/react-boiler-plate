@@ -17,7 +17,6 @@ export default {
         sans: ["Inter", "sans-serif"],
         serif: ["Merriweather", "serif"],
       },
-      
       spacing: {
         18: "4.5rem",
         22: "5.5rem",

@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { FaTimes } from 'react-icons/fa';
+import { X } from "lucide-react";
 import { closeModal } from '../redux/features/modal/modal.slice';
 
 const GlobalModal = () => {
@@ -23,7 +23,7 @@ const GlobalModal = () => {
             className="absolute top-2 right-2 z-50 text-gray-500 p-1 pb-2 pr-4 pt-6 rounded hover:border-none hover:outline-none"
             onClick={() => dispatch(closeModal())}
           >
-            <FaTimes size={22} color='gray'/>
+            <X size={22} color='gray'/>
           </button>
           
           {/* Render the dynamic component */}
